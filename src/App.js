@@ -16,10 +16,12 @@ class App extends React.Component {
   }
   unsubcribeFromAuth = null;
   componentDidMount() {
+    // subscribes to auth and listens to changes
     this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+        const userRef = await createUserProfileDocument(userAuth); // returns userRef after creating profile
 
+        // if snapshot exists adds it to state
         userRef.onSnapshot(snapshot => {
           this.setState(
             {
@@ -33,7 +35,7 @@ class App extends React.Component {
         });
       } else {
         this.setState({ currentUser: userAuth });
-      }
+      } // sets state to null
     });
   }
   componentWillUnmount() {
